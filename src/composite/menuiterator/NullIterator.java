@@ -1,6 +1,7 @@
 package composite.menuiterator;
 
-import collections.iterator.Iterator;
+
+import java.util.Iterator;
 
 public class NullIterator implements Iterator<MenuComponent> {
 
