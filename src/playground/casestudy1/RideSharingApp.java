@@ -1,5 +1,7 @@
 package playground.casestudy1;
 
+import java.util.List;
+
 public class RideSharingApp {
     public static void main(String[] args) {
         Vehicle vehicle = new Car();
@@ -11,7 +13,8 @@ public class RideSharingApp {
         paymentService.doPayment(20);
 
         Notification notification = new PushNotification();
-        NotificationService notificationService = new NotificationService(notification);
+        Notification email = new Email();
+        NotificationService notificationService = new NotificationService(List.of(notification, email));
         notificationService.notify("Hi ");
     }
 }

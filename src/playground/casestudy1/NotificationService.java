@@ -1,14 +1,18 @@
 package playground.casestudy1;
 
+import java.util.List;
+
 public class NotificationService {
 
-    private Notification notification;
+    private List<Notification> notifications; // multiple notification
 
-    public NotificationService(Notification notification) {
-        this.notification = notification;
+    public NotificationService(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     public void notify(String message) {
-        notification.notify(message);
+        for (Notification notification : notifications) {
+            notification.notify(message);
+        }
     }
 }
