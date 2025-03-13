@@ -8,10 +8,13 @@ public class Order {
     double amount;
     Restaurant restaurant;
 
-    public Order(Customer customer, List<FoodItem> foodItems, Restaurant restaurant) {
+    PaymentProcessor paymentProcessor;
+
+    public Order(Customer customer, List<FoodItem> foodItems, Restaurant restaurant, PaymentProcessor paymentProcessor) {
         this.customer = customer;
         this.foodItems = foodItems;
         this.restaurant = restaurant;
+        this.paymentProcessor = paymentProcessor;
         this.amount = foodItems.stream().mapToDouble(FoodItem::getPrice).sum();
     }
 
