@@ -7,9 +7,13 @@ public class SingletonLazy {
 
     private static SingletonLazy singleton = null;
     private static Lock lock = new ReentrantLock();
-    private SingletonLazy() {}
+    private SingletonLazy() throws Exception {
+        if (singleton != null) {
+            throw new Exception("Singleton called from Reflection");
+        }
+    }
 
-    public static SingletonLazy getSingleton() {
+    public static SingletonLazy getSingleton() throws Exception {
         lock.lock();
         try {
             if (singleton == null) {
