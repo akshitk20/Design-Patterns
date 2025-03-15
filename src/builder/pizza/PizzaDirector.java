@@ -10,7 +10,13 @@ public class PizzaDirector {
 
     public static void main(String[] args) {
         PizzaBuilder pizzaBuilder = new MeatPizzaBuilder();
-        Pizza pizza = pizzaBuilder.addCheese().addGarlic().addPepperoni().addSausage().addTomatoes().build();
+        Pizza pizza = pizzaBuilder
+                .addCheese()
+                .addGarlic()
+                .addPepperoni()
+                .addSausage()
+                .addTomatoes()
+                .build();
         pizza.prepare();
         pizza.bake();
         pizza.cut();
