@@ -1,15 +1,22 @@
 package adaptor.paymentgateway;
 
-// todo: make this singleton
+// singleton
 public class RazorpayAdaptor implements PaymentProcessor {
-    private Razorpay razorpay;
-
-    public RazorpayAdaptor(Razorpay razorpay) {
-        this.razorpay = razorpay;
+    private static Razorpay razorpay = null;
+    private static RazorpayAdaptor razorPayAdaptor = null;
+    private RazorpayAdaptor() {
     }
 
     @Override
     public void processPayment(double amount) {
         razorpay.triggerPayment((int) amount);
+    }
+
+    public static RazorpayAdaptor getRazorPayAdaptor(Razorpay razorpay) {
+        if (razorPayAdaptor == null) {
+            razorPayAdaptor = new RazorpayAdaptor();
+            RazorpayAdaptor.razorpay = razorpay;
+        }
+        return razorPayAdaptor;
     }
 }

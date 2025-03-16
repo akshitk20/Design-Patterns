@@ -5,7 +5,7 @@ public class Main {
         PaymentProcessor paymentProcessor = PayPalAdaptor.getPaypalAdaptor(new Paypal());
         paymentProcessor.processPayment(100);
 
-        PaymentProcessor paymentProcessor1 = new RazorpayAdaptor(new Razorpay());
+        PaymentProcessor paymentProcessor1 = RazorpayAdaptor.getRazorPayAdaptor(new Razorpay());
         paymentProcessor1.processPayment(200);
     }
 }
