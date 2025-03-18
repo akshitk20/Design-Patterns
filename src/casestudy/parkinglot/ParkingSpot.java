@@ -5,6 +5,8 @@ public class ParkingSpot {
     private int row;
     private int slot;
     private Vehicle vehicle;
+    private boolean isAvailable;
+
 
     public ParkingSpot(int floor, int row, int slot) {
         this.floor = floor;
@@ -42,5 +44,13 @@ public class ParkingSpot {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 }

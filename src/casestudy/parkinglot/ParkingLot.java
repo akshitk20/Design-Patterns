@@ -2,30 +2,30 @@ package casestudy.parkinglot;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ParkingLot {
-    private List<ParkingSpot> parkingSpots;
+    private Map<ParkingSpot, Vehicle> parkingSpots;
     public static ParkingLot parkingLot = null;
 
     private ParkingLot() {
-        parkingSpots = new ArrayList<>();
+        parkingSpots = new HashMap<>();
     }
 
     public void parkVehicle(Vehicle vehicle, ParkingSpot parkingSpot) {
-        if (parkingSpots.contains(parkingSpot)) throw new IllegalArgumentException("Cannot park at this spot");
+        if (parkingSpots.containsKey(parkingSpot)) throw new IllegalArgumentException("Cannot park at this spot");
         vehicle.setParkingStartTime(LocalTime.now());
         parkingSpot.setVehicle(vehicle);
-        parkingSpots.add(parkingSpot);
+        parkingSpot.setAvailable(false);
+        parkingSpots.put(parkingSpot, vehicle);
         System.out.println("Vehicle is parked!!");
     }
 
     public Vehicle removeVehicle(ParkingSpot parkingSpot) {
-        ParkingSpot vehicleIsNotParked = parkingSpots.stream().filter(spot -> spot.equals(parkingSpot))
-                .findFirst().orElseThrow(() -> new IllegalArgumentException("Vehicle is not parked"));
-        parkingSpots.remove(vehicleIsNotParked);
-        Vehicle vehicle = vehicleIsNotParked.getVehicle();
+        Vehicle vehicle = parkingSpots.get(parkingSpot);
+        parkingSpots.remove(parkingSpot);
+        parkingSpot.setAvailable(false);
         long hours = vehicleParkedTime(vehicle);
         double amount = vehicle.calculatePayment((double) hours);
         System.out.println("Vehicle amount is " + amount);
@@ -33,11 +33,11 @@ public class ParkingLot {
     }
 
     public long vehicleParkedTime(Vehicle vehicle) {
-        return ChronoUnit.HOURS.between(vehicle.getParkingStartTime(), LocalTime.now());
+        return ChronoUnit.MINUTES.between(vehicle.getParkingStartTime(), LocalTime.now());
     }
 
     public boolean checkAvailability(ParkingSpot parkingSpot) {
-        return parkingSpots.contains(parkingSpot);
+        return !parkingSpots.containsKey(parkingSpot);
     }
 
     public static ParkingLot getParkingLot() {
