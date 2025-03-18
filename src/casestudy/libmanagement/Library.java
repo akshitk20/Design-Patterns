@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-    List<Book> books;
+    private static Library library = null;
+    private static List<Book> books;
 
-    public Library() {
-        this.books = new ArrayList<>();
+    private static BooksNotifier booksNotifier;
+
+    private Library() {
     }
 
     public void addBook(Book book) {
         this.books.add(book);
+        booksNotifier.notifyUsers();
     }
 
     public void removeBook(Book book) {
@@ -45,5 +48,14 @@ public class Library {
                 System.out.println(book.getTitle() + " : " +book.getAuthorName() + " : " +book.getIsbn());
             }
         }
+    }
+
+    public static Library getLibrary() {
+        if (library == null) {
+            library = new Library();
+            Library.books = new ArrayList<>();
+            Library.booksNotifier = new BooksNotifier();
+        }
+        return library;
     }
 }

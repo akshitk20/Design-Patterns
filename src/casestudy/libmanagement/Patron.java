@@ -3,7 +3,7 @@ package casestudy.libmanagement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Patron {
+public class Patron implements Observer {
     private int id;
     private String name;
     private List<Book> checkedOutBooks = new ArrayList<>();
@@ -37,4 +37,8 @@ public class Patron {
         this.checkedOutBooks.remove(book);
     }
 
+    @Override
+    public void update(String message) {
+        System.out.println("received update");
+    }
 }

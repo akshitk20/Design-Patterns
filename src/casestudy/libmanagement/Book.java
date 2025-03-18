@@ -1,6 +1,6 @@
 package casestudy.libmanagement;
 
-public class Book {
+public abstract class Book {
     private String title;
     private String authorName;
     private String isbn;
@@ -44,4 +44,5 @@ public class Book {
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
+
 }

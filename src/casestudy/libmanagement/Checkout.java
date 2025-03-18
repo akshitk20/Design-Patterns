@@ -11,9 +11,12 @@ public class Checkout {
     private LocalDate dueDate;
 
     private int dueDays;
+    FineCalculationStrategy strategy;
+    private long finePaid;
 
-    public Checkout(int dueDays) {
+    public Checkout(int dueDays, FineCalculationStrategy strategy) {
         this.dueDays = dueDays;
+        this.strategy = strategy;
     }
 
     public void checkout(Book book, Patron patron) {
@@ -35,6 +38,8 @@ public class Checkout {
         }
         if (ChronoUnit.DAYS.between(dueDate, LocalDate.now()) > 5) {
             // fine functionality excluded
+            long days = ChronoUnit.DAYS.between(dueDate, LocalDate.now()) - 5;
+            finePaid = strategy.calculateFine(days);
             System.out.println("Pay fine");
         }
         map.remove(book);
